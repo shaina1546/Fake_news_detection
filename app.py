@@ -122,10 +122,17 @@ def get_latest_metrics() -> Optional[Dict[str, Any]]:
 
 # Sidebar Navigation & Status
 st.sidebar.title("📰 Navigation")
+st.sidebar.title("📰 Navigation")
+
+if st.session_state.pop("home_navigation", None):
+    st.session_state["selected_page"] = "🔍 News Analysis"
+
 page = st.sidebar.radio(
     "Select a Section:",
     ["🏠 Home", "🔍 News Analysis", "📊 Model Information", "ℹ️ About Project"],
+    key="selected_page",
 )
+
 
 model_available = MODEL_PATH.exists()
 st.sidebar.markdown("---")
@@ -145,47 +152,152 @@ st.sidebar.info(
 # PAGE A: HOME
 # -----------------------------------------------------------------------------
 if page == "🏠 Home":
-    st.title("📰 Fake News Detection System")
-    st.subheader("Machine Learning-Based News Text Classification")
+
+    # Hero Section
+    st.markdown("""
+        <div style="
+            background: linear-gradient(135deg, #0f172a, #1e40af);
+            padding: 40px 30px;
+            border-radius: 18px;
+            text-align: center;
+            margin-bottom: 25px;
+        ">
+            <h1 style="
+                color: white;
+                font-size: 38px;
+                margin-bottom: 12px;
+            ">📰 Fake News Detection System</h1>
+            <p style="
+                color: #dbeafe;
+                font-size: 18px;
+                margin-bottom: 20px;
+            ">
+                Intelligent News Analysis Powered by Machine Learning
+            </p>
+            <span style="
+                background-color: #2563eb;
+                color: white;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 14px;
+            ">TF-IDF + Logistic Regression</span>
+        </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("""
-    Welcome to the **Fake News Detection System**, an educational machine learning application 
-    designed to identify lexical, stylistic, and linguistic markers commonly associated with 
-    unreliable or artificially fabricated news text.
+    Welcome to your **Fake News Detection System**!
 
-    ---
-    ### ⚙️ How It Works
-    1. **Text Preprocessing:** Cleans input by normalizing whitespace, standardizing casing, and eliminating noisy characters.
-    2. **TF-IDF Feature Extraction:** Converts textual articles into statistical n-gram vectors (Term Frequency - Inverse Document Frequency) emphasizing distinctive vocabulary patterns.
-    3. **Logistic Regression Classification:** A lightweight, interpretable linear classifier calculates class probability boundaries learned from labeled historical datasets.
-    4. **Safety & Transparency:** Returns transparent model score estimates accompanied by essential context regarding algorithmic limitations.
+    This application uses machine learning and Natural Language Processing
+    (NLP) to analyze news text and identify patterns associated with
+    potentially unreliable information.
 
-    ---
-    ### ⚠️ Crucial Ethical & Operational Disclaimer
-    > **Machine learning models classify writing style, not objective reality.**  
-    > An algorithm trained on text patterns cannot independently confirm whether a real-world event happened. 
-    > A fabricated claim written in formal journalistic tone might deceive the model, while a factual breaking story 
-    > written in an informal tone might be flagged.  
-    > **Always verify critical claims through multiple authoritative, independent primary sources.**
+    ### ✨ What Can You Do?
     """)
 
-    st.markdown("### 🚀 Quick Start Guide")
-    col1, col2 = st.columns(2)
+    # Feature Cards
+    col1, col2, col3 = st.columns(3)
+
     with col1:
         st.markdown("""
-        **1. For Users:**
-        - Navigate to **🔍 News Analysis** in the left sidebar.
-        - Paste a news article or headline into the analysis box.
-        - Click **Analyze News** to evaluate the stylistic markers.
-        """)
+        <div style="
+            background-color: #eff6ff;
+            padding: 22px;
+            border-radius: 14px;
+            border: 1px solid #bfdbfe;
+            min-height: 190px;
+        ">
+            <h3 style="color: #1d4ed8;">🔍 Text Analysis</h3>
+            <p style="color: #334155;">
+                Enter a news headline or article and analyze it using
+                your trained machine learning model.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
     with col2:
         st.markdown("""
-        **2. For Developers:**
-        - Inspect training metrics in **📊 Model Information**.
-        - Train or retrain models locally with `python -m src.train_model`.
-        - Run automated software tests via `python -m pytest tests/ -v`.
-        """)
+        <div style="
+            background-color: #f0fdf4;
+            padding: 22px;
+            border-radius: 14px;
+            border: 1px solid #bbf7d0;
+            min-height: 190px;
+        ">
+            <h3 style="color: #15803d;">🤖 Machine Learning</h3>
+            <p style="color: #334155;">
+                Explore how TF-IDF and Logistic Regression help
+                classify patterns in news text.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
+    with col3:
+        st.markdown("""
+        <div style="
+            background-color: #f5f3ff;
+            padding: 22px;
+            border-radius: 14px;
+            border: 1px solid #ddd6fe;
+            min-height: 190px;
+        ">
+            <h3 style="color: #6d28d9;">📊 Model Insights</h3>
+            <p style="color: #334155;">
+                Explore the model's available metrics, training details,
+                and project information.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Navigation Button
+    st.markdown("### 🚀 Ready to Get Started?")
+    st.write("Open the News Analysis section to try your model.")
+
+    if st.button(
+        "🔍 Go to News Analysis",
+        type="primary",
+        use_container_width=True
+    ):
+        st.session_state["home_navigation"] = "🔍 News Analysis"
+        st.rerun()
+
+    st.markdown("---")
+
+    # How It Works
+    st.markdown("### ⚙️ How the System Works")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.markdown("#### 1️⃣ Input")
+        st.write("Provide a news headline or article for analysis.")
+
+    with col2:
+        st.markdown("#### 2️⃣ Process")
+        st.write("TF-IDF converts the text into numerical features.")
+
+    with col3:
+        st.markdown("#### 3️⃣ Predict")
+        st.write("Logistic Regression predicts a category based on learned patterns.")
+
+    st.markdown("---")
+
+    # Disclaimer
+    st.warning("""
+    **⚠️ Important Disclaimer**
+
+    This system analyzes text patterns; it does not independently verify
+    whether a news story is true or false. Its predictions may be incorrect.
+    Always check important claims against multiple reliable sources.
+    """)
+
+    st.markdown("""
+    <div style="text-align: center; color: #64748b; padding: 15px;">
+        <p>Fake News Detection System | Machine Learning Project</p>
+        <p>Built with Python, Streamlit, and Scikit-learn</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
 # PAGE B: NEWS ANALYSIS
