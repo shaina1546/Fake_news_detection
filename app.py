@@ -20,7 +20,69 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+# ADD THE CSS HERE
+st.markdown("""
+<style>
+.stApp {
+    background: linear-gradient(135deg, #f8fafc, #eef4ff);
+    color: #172554;
+}
 
+.block-container {
+    max-width: 1200px;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+h1 {
+    color: #102a56 !important;
+    font-weight: 800 !important;
+}
+
+h2, h3 {
+    color: #173b72 !important;
+    font-weight: 700 !important;
+}
+
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #102a56, #173b72);
+}
+
+section[data-testid="stSidebar"] * {
+    color: white;
+}
+
+.stTextArea textarea {
+    background-color: white !important;
+    color: #172554 !important;
+    border-radius: 12px !important;
+    border: 1px solid #cbd9ee !important;
+}
+
+.stButton > button {
+    border-radius: 10px;
+    min-height: 44px;
+    font-weight: 650;
+}
+
+.stButton > button[kind="primary"] {
+    background: #2563eb;
+    color: white;
+    border: none;
+}
+
+div[data-testid="stMetric"] {
+    background: white;
+    border: 1px solid #dbe7f5;
+    border-radius: 14px;
+    padding: 18px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# Relative Path Constants (compatible with local execution and Streamlit Community Cloud)
+BASE_DIR = Path(__file__).resolve().parent
 # Relative Path Constants (compatible with local execution and Streamlit Community Cloud)
 BASE_DIR = Path(__file__).resolve().parent
 if str(BASE_DIR) not in sys.path:
