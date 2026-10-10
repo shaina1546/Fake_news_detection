@@ -1,0 +1,48 @@
+# Python virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python byte-code and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment and sensitive configuration files
+.env
+.env.*
+.streamlit/secrets.toml
+
+# Datasets (Large CSV and zip files should never be committed to Git)
+data/*.csv
+data/*.zip
+data/*.tar.gz
+data/*.parquet
+!data/README.md
+!data/.gitkeep
+
+# Trained Model Binaries (Exclude large serialized pipelines from Git)
+models/*.joblib
+models/*.pkl
+!models/.gitkeep
+
+# Evaluation output figures and runs (Exclude generated plots while keeping directory structure)
+reports/*.png
+reports/*.json
+reports/*.csv
+!reports/.gitkeep
+!reports/README.md
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE and Editor configs
+.vscode/
+.idea/
+*.swp
