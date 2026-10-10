@@ -7,12 +7,13 @@ machine learning pipeline with TF-IDF feature extraction and Logistic Regression
 
 from __future__ import annotations
 import json
+import sys
 from pathlib import Path
 from typing import Optional, Dict, Any
 
 import streamlit as st
 
-# Application Configuration
+# Application Configuration (must be called first)
 st.set_page_config(
     page_title="Fake News Detection System",
     page_icon="📰",
@@ -22,6 +23,9 @@ st.set_page_config(
 
 # Relative Path Constants (compatible with local execution and Streamlit Community Cloud)
 BASE_DIR = Path(__file__).resolve().parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
+
 MODELS_DIR = BASE_DIR / "models"
 REPORTS_DIR = BASE_DIR / "reports"
 DATA_DIR = BASE_DIR / "data"
