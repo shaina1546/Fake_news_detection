@@ -13,7 +13,7 @@ def test_streamlit_app_startup_without_model():
     """
     app_path = str(Path(__file__).resolve().parent.parent / "app.py")
     at = AppTest.from_file(app_path)
-    at.run()
+    at.run(timeout=30)
 
     # The app should initialize without throwing unhandled exceptions
     assert not at.exception

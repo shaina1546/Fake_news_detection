@@ -156,7 +156,7 @@ def train_and_evaluate(
 
     # Log summary to console
     print("\n" + "=" * 60)
-    print("🎯 TRAINING AND EVALUATION COMPLETED SUCCESSFULLY")
+    print("[SUCCESS] TRAINING AND EVALUATION COMPLETED SUCCESSFULLY")
     print("=" * 60)
     print(f"Total Dataset Samples: {data_report.total_samples:,}")
     print(f"Train / Test Split:    {len(X_train):,} / {len(X_test):,} (stratified)")
@@ -221,10 +221,10 @@ def main() -> None:
             max_features=args.max_features,
         )
     except FileNotFoundError as fnf_err:
-        logger.error(f"\n❌ DATASET ERROR:\n{fnf_err}")
+        logger.error(f"\n[DATASET ERROR]:\n{fnf_err}")
         sys.exit(1)
     except Exception as exc:
-        logger.error(f"\n❌ TRAINING FAILED: {exc}", exc_info=True)
+        logger.error(f"\n[TRAINING FAILED]: {exc}", exc_info=True)
         sys.exit(1)
 
 

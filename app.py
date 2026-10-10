@@ -189,47 +189,52 @@ elif page == "🔍 News Analysis":
                     # Classification Banner
                     if result.predicted_label == 1:
                         # Fake / Unreliable
-                        st.error(f"### 🚩 Prediction: Resembles **{result.label_name.upper()}** News Patterns")
+                        st.error("### 🚩 Prediction: **Likely Fake**")
                         st.markdown(
-                            "The linguistic features and vocabulary of this text exhibit characteristics "
-                            "frequently associated with **unreliable or fabricated reporting** in the training dataset."
+                            "The linguistic features, vocabulary, and stylistic markers of this text exhibit characteristics "
+                            "strongly resembling articles labeled as **Fake News** in the training dataset."
                         )
                     else:
                         # Real / Reliable
-                        st.success(f"### 🟢 Prediction: Resembles **{result.label_name.upper()}** News Patterns")
+                        st.success("### 🟢 Prediction: **Likely Real**")
                         st.markdown(
-                            "The linguistic style and structural tone of this text align with patterns "
-                            "typical of **mainstream factual journalism** in the training dataset."
+                            "The linguistic style, tone, and vocabulary of this text align with patterns "
+                            "typical of articles labeled as **Real News** in the training dataset."
                         )
 
                     # Probabilities Breakdown
                     if result.probabilities:
-                        st.markdown("#### Estimated Class Probabilities")
+                        st.markdown("#### Estimated Resemblance Probabilities")
                         p_col1, p_col2 = st.columns(2)
                         real_p = result.probabilities.get("Real", 0.0)
                         fake_p = result.probabilities.get("Fake", 0.0)
 
                         with p_col1:
                             st.metric(
-                                label="Real News Resemblance Score",
+                                label="Likely Real Resemblance Score",
                                 value=f"{real_p * 100:.1f}%",
                             )
                             st.progress(real_p)
 
                         with p_col2:
                             st.metric(
-                                label="Fake News Resemblance Score",
+                                label="Likely Fake Resemblance Score",
                                 value=f"{fake_p * 100:.1f}%",
                             )
                             st.progress(fake_p)
 
                         st.caption(
-                            "Note: Probability estimates reflect uncalibrated logistic regression sigmoid outputs "
-                            "relative to training distributions. They represent model resemblance scores, not absolute probabilities of truth."
+                            "Note: Probability estimates reflect logistic regression sigmoid outputs "
+                            "relative to training distributions. They represent text-similarity scores, not absolute probabilities of truth."
                         )
 
                     # Context and Ethics Notice
-                    st.warning(f"ℹ️ **Important Verification Notice:**\n\n{result.disclaimer}")
+                    st.warning(
+                        f"⚠️ **Important Verification Notice:**\n\n{result.disclaimer}\n\n"
+                        "**Crucial Reminder:** This prediction is strictly an automated stylistic classification based on patterns "
+                        "learned from the dataset. It cannot verify real-world facts or confirm whether an event actually happened. "
+                        "Always consult multiple verified, independent sources for critical news."
+                    )
 
                 except Exception as err:
                     st.error(f"Prediction failed: {err}")
