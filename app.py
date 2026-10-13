@@ -23,7 +23,7 @@ st.set_page_config(
     page_title="Fake News Detection System",
     page_icon="📰",
     layout="wide",
-    initial_sidebar_state="auto",
+    initial_sidebar_state="collapsed",
 )
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -69,6 +69,8 @@ CSS = """
   --serif:'Playfair Display', Georgia, 'Times New Roman', serif;
 }
 #MainMenu, footer {visibility:hidden;}
+section[data-testid="stSidebar"], div[data-testid="stSidebarCollapsedControl"],
+div[data-testid="collapsedControl"] {display:none !important;}
 .stApp {background:var(--paper);}
 .block-container {max-width:1100px; padding-top:2rem; padding-bottom:3rem;}
 h1,h2,h3 {font-family:var(--serif) !important; color:var(--ink); letter-spacing:-0.01em;}
@@ -253,22 +255,6 @@ model_available = MODEL_PATH.exists()
 
 if st.session_state.pop("goto_analyze", False):
     st.session_state["page"] = "Analyze News"
-
-with st.sidebar:
-    st.markdown('<div class="brand">📰 Fake News Detector</div>'
-                '<div class="brand-sub">TF-IDF + Logistic Regression</div>',
-                unsafe_allow_html=True)
-    st.markdown("---")
-    if model_available:
-        st.markdown('<span class="status-pill status-ok">● Model ready</span>', unsafe_allow_html=True)
-    else:
-        st.markdown('<span class="status-pill status-no">● Model not trained</span>', unsafe_allow_html=True)
-    st.markdown(
-        '<div class="side-note">Results describe writing style learned from a dataset. '
-        "They are not fact-checks. Verify important claims with reliable sources.</div>",
-        unsafe_allow_html=True,
-    )
-
 
 # -----------------------------------------------------------------------------
 # Pages
