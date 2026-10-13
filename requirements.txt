@@ -1,8 +1,8 @@
 # Web Application Framework
-streamlit>=1.35.0
+streamlit>=1.39.0
 
 # Machine Learning Pipeline & Model Inference
-scikit-learn>=1.4.0
+scikit-learn==1.9.1
 joblib>=1.3.0
 
 # Data Processing
